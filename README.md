@@ -37,7 +37,6 @@ Geethika – Frontend Styling & Interactivity (CSS + JS)
 📂 Project Structure
 GigHunt/
 │── app.py                # Flask backend
-
 │── requirements.txt       # Dependencies
 │── database.db            # SQLite database
 │── README.md              # Documentation
