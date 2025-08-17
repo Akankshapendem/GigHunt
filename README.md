@@ -30,9 +30,9 @@ Templating: Jinja2
 
 Giridhar Reddy – Backend & Setup (Flask, DB, requirements)
 
-Akanksha – UI (HTML templates & structure)
+Geetika – UI (HTML templates & structure)
 
-Geethika – Frontend Styling & Interactivity (CSS + JS)
+Akanksha - Frontend Styling & Interactivity (CSS + JS)
 
 📂 Project Structure
 GigHunt/
