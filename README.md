@@ -1,4 +1,3 @@
-# CareerBoard+ (Flask + SQLite)
 Run:
   python -m venv venv
   venv\Scripts\activate   # Windows
