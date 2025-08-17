@@ -32,7 +32,7 @@ Giridhar Reddy – Backend & Setup (Flask, DB, requirements)
 
 Akanksha – UI (HTML templates & structure)
 
-[Teammate 3 Name] – Frontend Styling & Interactivity (CSS + JS)
+Geethika – Frontend Styling & Interactivity (CSS + JS)
 
 📂 Project Structure
 GigHunt/
