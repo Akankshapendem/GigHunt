@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="page-header">
+  <div>
+    <h1 class="title">Job Board</h1>
+    <p class="subtitle">Track your applications — drag cards between columns to update status.</p>
+  </div>
+</section>
+
+<!-- Quick add form (compact) -->
+<div class="panel compact-add">
+  <form method="POST" action="{{ url_for('create_job') }}" class="compact-form">
+    <input name="title" placeholder="Job title (e.g. Backend Engineer)" required>
+    <input name="company" placeholder="Company">
+    <select name="status">
+      {% for s in statuses %}<option>{{ s }}</option>{% endfor %}
+    </select>
+    <input name="link" placeholder="Job link (optional)">
+    <button class="btn-primary">Add</button>
+  </form>
+</div>
+
+<!-- Board -->
+<div class="board" id="boardRoot">
+  {% for s in statuses %}
+  <section class="column" data-dropzone="col" data-status="{{ s }}">
+    <header class="col-head">
+      <div class="col-title">{{ s }}</div>
+      <div class="col-count">{{ (columns.get(s) | length) if columns.get(s) else 0 }}</div>
+    </header>
+
+    <div class="cards">
+      {% for j in columns.get(s, []) %}
+      <article class="card" draggable="true" data-draggable="card" data-id="{{ j.id }}" aria-grabbed="false">
+        <div class="card-left">
+          <div class="card-title">{{ j.title }}</div>
+          <div class="card-company">{{ j.company or '—' }}</div>
+          {% if j.link %}
+            <a class="card-link" href="{{ j.link }}" target="_blank" rel="noopener">Open</a>
+          {% endif %}
+        </div>
+        <div class="card-actions">
+          <button class="icon small" data-action="delete" data-id="{{ j.id }}" title="Delete">🗑️</button>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+  {% endfor %}
+</div>
+
+<!-- Small help footer -->
+<div class="small muted">Tip: drag a card to another column to update its status.</div>
+<script src="{{ url_for('static', filename='js/board.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="page-header">
+  <div>
+    <h1 class="title">Documents</h1>
+    <p class="subtitle">Store resumes, cover letters and useful links.</p>
+  </div>
+</section>
+
+<div class="panel docs-controls">
+  <button class="btn" onclick="document.getElementById('link-form').style.display='block'">+ Link</button>
+  <button class="btn" onclick="document.getElementById('upload-form').style.display='block'">+ Upload</button>
+</div>
+
+<form id="link-form" class="panel hidden" method="POST" action="{{ url_for('add_link_document') }}">
+  <label class="small">Title</label>
+  <input name="title" required>
+  <label class="small">URL</label>
+  <input name="url" required>
+  <div style="text-align:right;margin-top:8px">
+    <button class="btn" type="button" onclick="this.closest('form').style.display='none'">Cancel</button>
+    <button class="btn-primary">Save</button>
+  </div>
+</form>
+
+<form id="upload-form" class="panel hidden" method="POST" action="{{ url_for('upload_document') }}" enctype="multipart/form-data">
+  <label class="small">Title (optional)</label>
+  <input name="title">
+  <label class="small">File</label>
+  <input type="file" name="file" required>
+  <div style="text-align:right;margin-top:8px">
+    <button class="btn" type="button" onclick="this.closest('form').style.display='none'">Cancel</button>
+    <button class="btn-primary">Upload</button>
+  </div>
+</form>
+
+<div class="grid-cards">
+  {% if not docs %}
+    <div class="panel muted">No documents yet.</div>
+  {% else %}
+    {% for d in docs %}
+      <div class="doc-card panel">
+        <div class="doc-title">{{ d.title }}</div>
+        <div class="small muted">{{ d.created_at[:16].replace('T',' ') }}</div>
+        <div style="margin-top:8px">
+          {% if d.kind == 'link' %}
+            <a class="btn" href="{{ d.url }}" target="_blank">Open link</a>
+          {% else %}
+            <a class="btn" href="{{ url_for('serve_upload', filename=d.file_path) }}" target="_blank">Open file</a>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  {% endif %}
+</div>
+{% endblock %}

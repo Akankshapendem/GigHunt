@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="page-header">
+  <div>
+    <h1 class="title">Contacts</h1>
+    <p class="subtitle">Save recruiter and interviewer contacts.</p>
+  </div>
+</section>
+
+<div class="panel">
+  <form method="POST" action="{{ url_for('add_contact') }}" class="grid-form">
+    <input name="name" placeholder="Name" required>
+    <input name="role" placeholder="Role">
+    <input name="company" placeholder="Company">
+    <input name="email" placeholder="Email">
+    <input name="phone" placeholder="Phone">
+    <input name="notes" placeholder="Notes">
+    <div style="grid-column:1/-1; text-align:right">
+      <button class="btn-primary">Add Contact</button>
+    </div>
+  </form>
+</div>
+
+<div class="grid-cards">
+  {% if not contacts %}
+    <div class="panel muted">No contacts yet.</div>
+  {% else %}
+    {% for c in contacts %}
+      <div class="panel contact-card">
+        <div class="contact-name">{{ c.name }}</div>
+        <div class="small muted">{{ c.role }} • {{ c.company }}</div>
+        <div style="margin-top:8px" class="small">{{ c.email }}{% if c.phone %} • {{ c.phone }}{% endif %}</div>
+        {% if c.notes %}<div class="small muted" style="margin-top:8px">{{ c.notes }}</div>{% endif %}
+      </div>
+    {% endfor %}
+  {% endif %}
+</div>
+{% endblock %}

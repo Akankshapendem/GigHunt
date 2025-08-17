@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{{ app_name or "GigHunt" }}</title>
+
+  <!-- Inter font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Main styles -->
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+
+  <!-- Chart.js (metrics page) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap">
+      <div class="brand">
+        <div class="logo">🎯</div>
+        <div class="brand-name">{{ app_name }}</div>
+      </div>
+
+      <nav class="nav">
+        <a href="{{ url_for('board') }}" class="{{ 'active' if request.path in ['/', '/board'] else '' }}">Board</a>
+        <a href="{{ url_for('activities') }}" class="{{ 'active' if request.path.startswith('/activities') else '' }}">Activities</a>
+        <a href="{{ url_for('documents') }}" class="{{ 'active' if request.path.startswith('/documents') else '' }}">Documents</a>
+        <a href="{{ url_for('contacts') }}" class="{{ 'active' if request.path.startswith('/contacts') else '' }}">Contacts</a>
+        <a href="{{ url_for('metrics') }}" class="{{ 'active' if request.path.startswith('/metrics') else '' }}">Metrics</a>
+      </nav>
+
+      <div class="right-controls">
+        <button id="themeToggle" class="icon-btn" title="Toggle dark / light">
+          <span id="themeIcon">🌓</span>
+        </button>
+        <a href="{{ url_for('board') }}#new" class="btn-primary">+ Create</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-wrap">
+          {% for cat, msg in messages %}
+            <div class="flash flash-{{ cat }}">{{ msg }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+<script src="{{ url_for('static', filename='js/board.js') }}"></script>
+
+</body>
+</html>

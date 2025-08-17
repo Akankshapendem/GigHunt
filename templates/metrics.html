@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="page-header">
+  <div>
+    <h1 class="title">Metrics</h1>
+    <p class="subtitle">Snapshot of your job search progress.</p>
+  </div>
+</section>
+
+<div class="grid-2 panels">
+  <div class="panel">
+    <canvas id="funnelChart" height="140"></canvas>
+  </div>
+
+  <div class="panel stats-grid">
+    <div class="stat">
+      <div class="stat-label">Jobs saved</div>
+      <div class="stat-number">{{ jobs_saved }}</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Applications</div>
+      <div class="stat-number">{{ funnel_values[1] }}</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Interviews</div>
+      <div class="stat-number">{{ funnel_values[2] }}</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Offers</div>
+      <div class="stat-number">{{ funnel_values[3] }}</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function(){
+    const labels = {{ funnel_labels|tojson }};
+    const values = {{ funnel_values|tojson }};
+    const ctx = document.getElementById('funnelChart').getContext('2d');
+    if (window._funnelChart) window._funnelChart.destroy();
+    window._funnelChart = new Chart(ctx, {
+      type: 'bar',
+      data: { labels, datasets: [{ data: values, backgroundColor: ['#7c3aed','#6d28d9','#4f46e5','#06b6d4'] }] },
+      options: {
+        plugins: { legend:{ display:false } },
+        responsive:true, maintainAspectRatio:false,
+        animation: false,
+        scales: { y: { beginAtZero:true } }
+      }
+    });
+  })();
+</script>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="page-header">
+  <div>
+    <h1 class="title">Activities</h1>
+    <p class="subtitle">Todo-style list for your follow-ups & interviews.</p>
+  </div>
+</section>
+
+<div class="layout">
+  <aside class="panel sidebar">
+    <a href="{{ url_for('activities', filter='all') }}" class="{{ 'active' if flt=='all' else '' }}">All</a>
+    <a href="{{ url_for('activities', filter='due_today') }}" class="{{ 'active' if flt=='due_today' else '' }}">Due Today</a>
+    <a href="{{ url_for('activities', filter='past_due') }}" class="{{ 'active' if flt=='past_due' else '' }}">Past Due</a>
+    <a href="{{ url_for('activities', filter='pending') }}" class="{{ 'active' if flt=='pending' else '' }}">Pending</a>
+    <a href="{{ url_for('activities', filter='completed') }}" class="{{ 'active' if flt=='completed' else '' }}">Completed</a>
+  </aside>
+
+  <main>
+    <div class="panel">
+      <button class="btn-primary" onclick="document.getElementById('act-form').style.display='block'">+ Activity</button>
+      <form id="act-form" class="panel hidden" method="POST" action="{{ url_for('add_activity') }}">
+        <input name="title" placeholder="Activity title" required>
+        <select name="kind">
+          {% for k in kinds %}<option>{{ k }}</option>{% endfor %}
+        </select>
+        <input type="date" name="due_date">
+        <div style="text-align:right"><button class="btn-primary">Create</button></div>
+      </form>
+    </div>
+
+    <div class="panel" style="margin-top:12px">
+      {% if not items %}
+        <div class="muted">No activities.</div>
+      {% else %}
+        {% for it in items %}
+          <div class="activity-row">
+            <div>
+              <div class="activity-title">{{ it.title }}</div>
+              <div class="small muted">{{ it.kind }}{% if it.due_date %} • Due {{ it.due_date }}{% endif %}</div>
+            </div>
+            <div>
+              {% if not it.is_completed %}
+                <form method="POST" action="{{ url_for('complete_activity', act_id=it.id) }}">
+                  <button class="btn">Mark Done</button>
+                </form>
+              {% else %}
+                <span class="small">Completed</span>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </main>
+</div>
+{% endblock %}
