@@ -18,15 +18,9 @@ Drag & Drop – move cards across job stages easily.
 
 Screenshots
 
-<img width="2559" height="1528" alt="Screenshot 2025-08-17 233311" src="https://github.com/user-attachments/assets/ce128fb7-ae42-4112-b5f4-a4975c3600ec" />
+<img width="1920" height="1080" alt="Screenshot (91)" src="https://github.com/user-attachments/assets/3ca74950-6370-4ad4-ba9c-bd9c3f32788e" />
 
-<img width="2559" height="1530" alt="Screenshot 2025-08-17 233355" src="https://github.com/user-attachments/assets/360d8f83-7dbc-4bd6-93c5-3ed998da5fcb" />
 
-<img width="2559" height="1525" alt="Screenshot 2025-08-17 233405" src="https://github.com/user-attachments/assets/1688d033-e1d1-4252-9735-ef379cd781b2" />
-
-<img width="2541" height="1521" alt="Screenshot 2025-08-17 233414" src="https://github.com/user-attachments/assets/1acbb6e8-c4dd-482f-925f-65e1f48a677f" />
-
-<img width="2559" height="1528" alt="Screenshot 2025-08-17 233422" src="https://github.com/user-attachments/assets/9c3ee4a3-dd2f-4940-bff6-f133efbca6e7" />
 
 🛠️ Tech Stack
 
